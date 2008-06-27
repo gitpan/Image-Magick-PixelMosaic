@@ -1,17 +1,16 @@
 package Image::Magick::PixelMosaic;
 
-use 5.008008;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 use Image::Magick;
 
 =head1 NAME
 
-Image::Magick::PixelMosaic - generate pixelized mosaic on images.
+Image::Magick::PixelMosaic - Pixelized mosaic filter for Image::Magick.
 
 =head1 SYNOPSIS
 
@@ -48,7 +47,7 @@ is equal to
   my $pix = Image::Magick::PixelMosaic->new;
   $pix->src($img);
 
-=item set, set($obj)
+=item src, src($obj)
 
 Get or set Image::Magick object.
 
@@ -56,25 +55,31 @@ Get or set Image::Magick object.
 
 Generates pixelized mosaic on specified geometry.
 
-I<Geomerty> must be specified as geometry form I<'WxH+X+Y'>.
+C<geomerty> must be specified as geometry form I<'WxH+X+Y'>.
 
-I<pixel width&height> must be specified as one of 'WxH', [W,H] or W (height==width).
+C<pixelsize> must be specified as one of 'WxH', [W,H] or W (height==width).
 
 All of W, H, X and Y must be non-negative integer.
 
-If geometry exceeds area of source image, it will be automatically reduced. 
+If geometry exceeds area of source image, it will be automatically cropped. 
 
-If height/width of image are '20x30' and
+When height/width of image are '20x30' and
 
   $pix->pixelize('20x20+1+5', [4,6])
 
-is called, pixelized area will be '16x24+1+5' effectively.
+is called, efefctive pixelized area will be '16x24+1+5'.
 
 =back
 
 =head1 SEE ALSO
 
 L<Image::Magick>
+
+=head1 TODO
+
+accept width/heigh/x/y options.
+
+more pixel color decision algorithm (currently use average of pixel area)
 
 =head1 AUTHOR
 
@@ -87,6 +92,7 @@ Copyright (C) 2008 by KATOU Akira (turugina)
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.8 or,
 at your option, any later version of Perl 5 you may have available.
+
 =cut
 
 sub new
