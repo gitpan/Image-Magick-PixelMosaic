@@ -3,7 +3,7 @@ package Image::Magick::PixelMosaic;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 $VERSION = eval $VERSION;  # see L<perlmodstyle>
 
 use Image::Magick;
@@ -83,7 +83,7 @@ more pixel color decision algorithm (currently use average of pixel area)
 
 =head1 AUTHOR
 
-KATOU Akira (turugina) E<lt>turugina@floralcompany.jpE<gt>
+KATOU Akira (turugina) E<lt>turugina@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -174,7 +174,7 @@ sub pixelize
 
       my @px = $img->GetPixels(
         x=>$x, y=>$y, width=>$pw, height=>$ph,
-        map=>q/RGB/, normalize=>1 );
+        map=>q/RGB/, normalize=>q/true/ );
       my $n = scalar(@px) / 3;
       for my $i ( 1 .. $n-1 ) {
         $px[0]+=$px[$i*3];
